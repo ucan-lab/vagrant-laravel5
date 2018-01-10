@@ -56,7 +56,7 @@ $ vagrant plugin install vagrant-vbguest
 ## 環境構築
 
 ```
-$ git clone ./example
+$ git clone https://github.com/ucan-lab/vagrant-laravel55 ./example
 $ cd example
 $ cp Vagrantfile.example Vagrantfile
 $ vagrant up
