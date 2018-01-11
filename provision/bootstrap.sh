@@ -56,9 +56,9 @@ yum -y install yum-utils
 yum-config-manager --disable ius
 
 # PHP7.1のインストール
-# yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-## ミラーサイト
-yum -y install http://remi.conetix.com.au/enterprise/remi-release-7.rpm
+## remiリポジトリ
+yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+## PHP
 yum -y install --enablerepo=remi-php71 php
 ## Laravel
 yum -y install --enablerepo=remi-php71 php-pdo php-tokenizer php-openssl php-mbstring php-xml
