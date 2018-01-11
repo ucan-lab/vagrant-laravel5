@@ -106,7 +106,8 @@ cp /vagrant/provision/dev/root/.mylogin.cnf /root/.mylogin.cnf
 chmod 600 ~/.mylogin.cnf
 
 ## Nodejs, yarn
-yum -y install nodejs --enablerepo=epel
+curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
+yum -y install nodejs
 wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo
 yum -y install yarn
 
@@ -118,3 +119,4 @@ systemctl enable chronyd
 # クリア
 yum clean all
 history -c
+

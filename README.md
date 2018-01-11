@@ -21,9 +21,9 @@ $ httpd -v
 Server version: Apache/2.4.6 (CentOS)
 Server built:   Oct 19 2017 20:39:16
 $ node -v
-v6.12.2
+v8.9.4
 $ npm -v
-3.10.10
+5.6.0
 $ yarn -v
 1.3.2
 $ mysql -e "SHOW VARIABLES LIKE '%character%'"
