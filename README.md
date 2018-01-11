@@ -110,3 +110,6 @@ $ php artisan serve --host 0.0.0.0
 ```
 
 http://192.168.33.10:8000
+
+![Laravel](https://i.gyazo.com/048e0a29861b003a33bea354f755b03e.png)
+
