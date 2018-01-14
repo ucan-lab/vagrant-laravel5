@@ -1,7 +1,1 @@
-# Vagrant
 .vagrant
-package.box
-Vagrantfile
-
-# VSCode
-.vscode

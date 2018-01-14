@@ -4,42 +4,14 @@ CentOS7でLaravel5.5が動作する環境を構築します。
 
 ## 仮想環境の各ライブラリのバージョン情報
 
-```
-$ cat /etc/redhat-release
-CentOS Linux release 7.4.1708 (Core)
-$ git --version
-git version 2.15.1
-$ php -v
-PHP 7.1.13 (cli) (built: Jan  3 2018 11:00:58) ( NTS )
-Copyright (c) 1997-2017 The PHP Group
-Zend Engine v3.1.0, Copyright (c) 1998-2017 Zend Technologies
-$ composer -V
-Composer version 1.5.6 2017-12-18 12:09:18
-$ mysql -V
-mysql  Ver 14.14 Distrib 5.7.20, for Linux (x86_64) using  EditLine wrapper
-$ httpd -v
-Server version: Apache/2.4.6 (CentOS)
-Server built:   Oct 19 2017 20:39:16
-$ node -v
-v8.9.4
-$ npm -v
-5.6.0
-$ yarn -v
-1.3.2
-$ mysql -e "SHOW VARIABLES LIKE '%character%'"
-+--------------------------+----------------------------+
-| Variable_name            | Value                      |
-+--------------------------+----------------------------+
-| character_set_client     | utf8mb4                    |
-| character_set_connection | utf8mb4                    |
-| character_set_database   | utf8mb4                    |
-| character_set_filesystem | binary                     |
-| character_set_results    | utf8mb4                    |
-| character_set_server     | utf8mb4                    |
-| character_set_system     | utf8                       |
-| character_sets_dir       | /usr/share/mysql/charsets/ |
-+--------------------------+----------------------------+
-```
+- CentOS7.x
+- PHP7.1.x
+- MySQL5.7
+- composer 1.5.x
+- httpd 2.4.x
+- node 8.9.x
+- npm 5.6.x
+- yarn 1.3.x
 
 ## 要件
 
@@ -49,16 +21,14 @@ $ mysql -e "SHOW VARIABLES LIKE '%character%'"
 ### 推奨プラグイン
 
 ```
-$ vagrant plugin install vagrant-share
-$ vagrant plugin install vagrant-vbguest
+$ vagrant plugin install vagrant-share vagrant-vbguest
 ```
 
 ## 環境構築
 
 ```
-$ git clone https://github.com/ucan-lab/vagrant-laravel55 ./example
-$ cd example
-$ cp Vagrantfile.example Vagrantfile
+$ git clone https://github.com/ucan-lab/vagrant-laravel55 ./project_name
+$ cd project_name
 $ vagrant up
 ```
 
@@ -71,21 +41,35 @@ $ git add .
 $ git commit -m "first commit"
 ```
 
-## Laravelインストール例
+## Git設定
 
 ```
 $ vagrant ssh
-* 以降、仮想環境内で実施
-$ composer create-project --prefer-dist laravel/laravel blog "5.5.*"
+* 以降のコマンドは仮想環境内で実施
+
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
 ```
 
-`blog` のインストール先ディレクトリ名は適宜変更ください。
+## Laravelインストール例
+
+```
+$ composer create-project --prefer-dist laravel/laravel temp "5.5.*"
+$ mv temp/* laravel
+$ mv temp/.* laravel
+
+$ cd laravel
+$ git add .
+$ git commit -m "laravel install"
+```
+
+既にファイルが存在するディレクトリに対して `create-project` できないため temp ディレクトリにLaravelをインストールし、ファイルを移動する。
 
 ### MySQLデータベース作成
 
 ```
 $ mysql -u vagrant -pMySQL5.7
-> CREATE DATABASE blog;
+> CREATE DATABASE laravel;
 > exit
 ```
 
@@ -94,9 +78,9 @@ MySQLへログイン＆データベースを作成する。
 ### MySQLデータベース設定
 
 ```
-$ cd blog
-* 以降、カレントディレクトリを blog とする
-sed -i -e 's/DB_DATABASE=homestead/DB_DATABASE=blog/' .env
+$ cd laravel
+* 以降、カレントディレクトリを laravel とする
+sed -i -e 's/DB_DATABASE=homestead/DB_DATABASE=laravel/' .env
 sed -i -e 's/DB_USERNAME=homestead/DB_USERNAME=vagrant/' .env
 sed -i -e 's/DB_PASSWORD=secret/DB_PASSWORD=MySQL5.7/' .env
 ```
@@ -112,4 +96,3 @@ $ php artisan serve --host 0.0.0.0
 http://192.168.33.10:8000
 
 ![Laravel](https://i.gyazo.com/048e0a29861b003a33bea354f755b03e.png)
-
