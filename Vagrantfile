@@ -7,7 +7,7 @@ Vagrant.configure('2') do |config|
   config.vm.provision :bootstrap, type: 'shell', path: 'provision/bootstrap.sh'
   config.vm.provision :bootstrap_default_user, type: 'shell', path: 'provision/bootstrap_default_user.sh', privileged: false
   # 共有フォルダ
-  config.vm.synced_folder '.', '/home/vagrant/laravel'
+  # config.vm.synced_folder '../laravel', '/home/vagrant/laravel'
 
   # キャッシュプラグイン
   if Vagrant.has_plugin?('vagrant-cachier')

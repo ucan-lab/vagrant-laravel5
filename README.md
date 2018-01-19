@@ -27,18 +27,11 @@ $ vagrant plugin install vagrant-share vagrant-vbguest
 ## 環境構築
 
 ```
-$ git clone https://github.com/ucan-lab/vagrant-laravel55 ./project_name
-$ cd project_name
+$ mkdir ~/projects
+$ cd ~/projects
+$ git clone https://github.com/ucan-lab/vagrant-laravel55
+$ cd vagrant-laravel55
 $ vagrant up
-```
-
-## Git初期化
-
-```
-$ rm -rf .git
-$ git init
-$ git add .
-$ git commit -m "first commit"
 ```
 
 ## Git設定
@@ -51,25 +44,43 @@ $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
 ```
 
+仮想環境内でGitを使用する場合は必ず設定しておく
+
 ## Laravelインストール例
 
-```
-$ composer create-project --prefer-dist laravel/laravel temp "5.5.*"
-$ mv temp/* laravel
-$ mv temp/.* laravel
+### プロジェクトディレクトリを作成
 
-$ cd laravel
+```
+$ mkdir ~/projects/project_name
+```
+
+### 共有フォルダ設定（Vagrantfile）
+
+```
+  config.vm.synced_folder '../project_name', '/home/vagrant/project_name'
+```
+
+Vagrantfileに追記して設定を反映
+
+```
+$ vagrant reload
+```
+
+### Laravel インストール
+
+```
+$ vagrant ssh
+$ composer create-project --prefer-dist laravel/laravel project_name "5.5.*"
+$ cd project_name
 $ git add .
 $ git commit -m "laravel install"
 ```
-
-既にファイルが存在するディレクトリに対して `create-project` できないため temp ディレクトリにLaravelをインストールし、ファイルを移動する。
 
 ### MySQLデータベース作成
 
 ```
 $ mysql -u vagrant -pMySQL5.7
-> CREATE DATABASE laravel;
+> CREATE DATABASE project_name;
 > exit
 ```
 
@@ -78,14 +89,11 @@ MySQLへログイン＆データベースを作成する。
 ### MySQLデータベース設定
 
 ```
-$ cd laravel
-* 以降、カレントディレクトリを laravel とする
-sed -i -e 's/DB_DATABASE=homestead/DB_DATABASE=laravel/' .env
-sed -i -e 's/DB_USERNAME=homestead/DB_USERNAME=vagrant/' .env
-sed -i -e 's/DB_PASSWORD=secret/DB_PASSWORD=MySQL5.7/' .env
+$ cd project_name
+$ sed -i -e 's/DB_DATABASE=homestead/DB_DATABASE=project_name/' .env
+$ sed -i -e 's/DB_USERNAME=homestead/DB_USERNAME=vagrant/' .env
+$ sed -i -e 's/DB_PASSWORD=secret/DB_PASSWORD=MySQL5.7/' .env
 ```
-
-.env が無い場合は .env.example をコピーして作成する
 
 ### ビルトインサーバ起動
 
@@ -96,3 +104,4 @@ $ php artisan serve --host 0.0.0.0
 http://192.168.33.10:8000
 
 ![Laravel](https://i.gyazo.com/048e0a29861b003a33bea354f755b03e.png)
+
