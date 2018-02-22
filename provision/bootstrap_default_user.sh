@@ -45,3 +45,13 @@ echo -------------------------------------------------
 
 cp /vagrant/provision/dev/home/vagrant/.bashrc ~/.bashrc
 cp /vagrant/provision/dev/home/vagrant/.bash_aliases ~/.bash_aliases
+
+echo -------------------------------------------------
+echo
+echo                    vim 設定
+echo
+echo -------------------------------------------------
+
+git clone http://github.com/VundleVim/Vundle.Vim.git ~/.vim/bundle/vundle
+cp /vagrant/provision/dev/home/vagrant/.vimrc ~/.vimrc
+vim +BundleInstall +qa
