@@ -1,4 +1,10 @@
-#!/bin/sh
+#!/bin/bash -eu
+
+echo -------------------------------------------------
+echo
+echo                    yum 高速化設定
+echo
+echo -------------------------------------------------
 
 cp /etc/yum/pluginconf.d/fastestmirror.conf /etc/yum/pluginconf.d/fastestmirror.conf.org
 
@@ -10,43 +16,68 @@ include_only=.jp
 prefer=ftp.iij.ad.jp
 EOS
 
-# yumのアップデート
+echo -------------------------------------------------
+echo
+echo                    基本設定
+echo
+echo -------------------------------------------------
+
 yum -y update
-# カーネル
 yum -y install kernel kernel-devel
-# 開発ツールの導入
 yum -y groupinstall "Base" "Development tools" "Japanese Support"
-# 便利ツール
-yum -y install epel-release
-yum -y install tree pv dstat p7zip fish
 
-# マニュアルの日本語化
-yum -y install man-pages-ja
+echo -------------------------------------------------
+echo
+echo                    便利ツール
+echo
+echo -------------------------------------------------
 
-# タイムゾーン設定
+yum -y install epel-release tree pv dstat p7zip man-pages-ja
+
+echo -------------------------------------------------
+echo
+echo                    タイムゾーン設定
+echo
+echo -------------------------------------------------
+
 timedatectl set-timezone Asia/Tokyo
 
-# 言語、キーボード設定
+echo -------------------------------------------------
+echo
+echo                    言語、キーボード設定
+echo
+echo -------------------------------------------------
+
 localedef -f UTF-8 -i ja_JP ja_JP.utf8
 localectl set-locale LANG=ja_JP.utf8
 localectl set-keymap jp106
 
-# SELinuxの無効化
+echo -------------------------------------------------
+echo
+echo                    SELinux 無効化
+echo
+echo -------------------------------------------------
+
 setenforce 0
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
 
-# yum-cron
+echo -------------------------------------------------
+echo
+echo                    yum 自動更新設定
+echo
+echo -------------------------------------------------
+
 yum -y install yum-cron
 cp /etc/yum/yum-cron.conf /etc/yum/yum-cron.conf.org
 sed -i 's/apply_updates = no/apply_updates = yes/' /etc/yum/yum-cron.conf
 systemctl start yum-cron
 systemctl enable yum-cron
 
-# bash
-\cp -f /vagrant/provision/dev/root/.bashrc ~/.bashrc
-\cp -f /vagrant/provision/dev/root/.bash_aliases ~/.bash_aliases
-
-## Git
+echo -------------------------------------------------
+echo
+echo                    Git
+echo
+echo -------------------------------------------------
 
 yum -y remove git
 yum -y install https://centos7.iuscommunity.org/ius-release.rpm
@@ -55,36 +86,70 @@ yum -y install git2u
 yum -y install yum-utils
 yum-config-manager --disable ius
 
-# PHP7.1のインストール
-## remiリポジトリ
+echo -------------------------------------------------
+echo
+echo                    PHP7.2, Apache2.4同梱
+echo
+echo -------------------------------------------------
+
+# remiリポジトリ
 yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-## PHP
-yum -y install --enablerepo=remi-php71 php
-## Laravel
-yum -y install --enablerepo=remi-php71 php-pdo php-tokenizer php-openssl php-mbstring php-xml
-## PHP-MySQL
-yum -y install --enablerepo=remi-php71 php-mysqlnd
-## Composer
-yum -y install --enablerepo=remi-php71 php-zip
-## PHP settings
+# PHP
+yum -y install --enablerepo=remi-php72 php
+# Laravel
+yum -y install --enablerepo=remi-php72 php-pdo php-tokenizer php-openssl php-mbstring php-xml
+# PHP-MySQL
+yum -y install --enablerepo=remi-php72 php-mysqlnd
+
+echo -------------------------------------------------
+echo
+echo                    Composer
+echo
+echo -------------------------------------------------
+
+# Composer
+yum -y install --enablerepo=remi-php72 php-zip
+yum -y install --enablerepo=remi-php72 composer
+
+echo -------------------------------------------------
+echo
+echo                    PHP 設定
+echo
+echo -------------------------------------------------
+
 mv /etc/php.ini /etc/php.ini.org
 cp /vagrant/provision/dev/etc/php.ini /etc/php.ini
 mkdir -p /var/log/php
 chown -R 777 /var/log/php
 systemctl restart httpd
 
-# Composer
-yum -y install --enablerepo=remi-php71 composer
+echo -------------------------------------------------
+echo
+echo                    MySQL5.7
+echo
+echo -------------------------------------------------
 
-# MySQL5.7 のインストール
 yum -y install https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
 yum -y install mysql-community-server
+
+echo -------------------------------------------------
+echo
+echo                    MySQL 設定
+echo
+echo -------------------------------------------------
+
 mv /etc/my.cnf /etc/my.cnf.org
 cp /vagrant/provision/dev/etc/my.cnf /etc/my.cnf
 mkdir -p /var/log/mysql
 chown -R mysql:mysql /var/log/mysql
 systemctl start mysqld
 systemctl enable mysqld
+
+echo -------------------------------------------------
+echo
+echo                    MySQL 初期設定
+echo
+echo -------------------------------------------------
 
 OLD_PASSWORD=`cat /var/log/mysql/mysql-error.log | grep 'temporary password' | awk -F ': ' '{print $NF}'`
 NEW_PASSWORD=MySQL5.7
@@ -101,22 +166,51 @@ mysql -u root -p"$NEW_PASSWORD" -e "GRANT ALL PRIVILEGES ON *.* TO vagrant@local
 # 権限設定の反映
 mysql -u root -p"$NEW_PASSWORD" -e "FLUSH PRIVILEGES"
 
-# ログイン情報
+echo -------------------------------------------------
+echo
+echo                    MySQL ログイン設定
+echo
+echo -------------------------------------------------
+
 cp /vagrant/provision/dev/root/.mylogin.cnf /root/.mylogin.cnf
 chmod 600 ~/.mylogin.cnf
 
-## Nodejs, yarn
+echo -------------------------------------------------
+echo
+echo                    Nodejs8.x, yarn
+echo
+echo -------------------------------------------------
+
 curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
 yum -y install nodejs
 wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo
+# yum -y install https://dl.yarnpkg.com/rpm/yarn.repo
 yum -y install yarn
 
-## chrony
+echo -------------------------------------------------
+echo
+echo                    chrony NTP設定
+echo
+echo -------------------------------------------------
+
 yum -y install chrony
 systemctl start chronyd
 systemctl enable chronyd
 
-# クリア
+echo -------------------------------------------------
+echo
+echo                    bash 設定
+echo
+echo -------------------------------------------------
+
+\cp -f /vagrant/provision/dev/root/.bashrc ~/.bashrc
+\cp -f /vagrant/provision/dev/root/.bash_aliases ~/.bash_aliases
+
+echo -------------------------------------------------
+echo
+echo                    クリア
+echo
+echo -------------------------------------------------
+
 yum clean all
 history -c
-
