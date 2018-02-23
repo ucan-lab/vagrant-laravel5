@@ -181,6 +181,7 @@ echo
 echo -------------------------------------------------
 
 cp $PROVISION/dev/root/.mylogin.cnf /root/.mylogin.cnf
+cp $PROVISION/dev/root/.mylogin.cnf /root/.my.cnf
 chmod 600 ~/.mylogin.cnf
 
 echo -------------------------------------------------

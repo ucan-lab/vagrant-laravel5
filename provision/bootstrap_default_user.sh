@@ -17,6 +17,7 @@ echo
 echo -------------------------------------------------
 
 cp $PROVISION/dev/home/vagrant/.mylogin.cnf ~/.mylogin.cnf
+cp $PROVISION/dev/home/vagrant/.my.cnf ~/.my.cnf
 chmod 600 ~/.mylogin.cnf
 
 echo -------------------------------------------------
