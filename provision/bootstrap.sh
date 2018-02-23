@@ -207,6 +207,27 @@ systemctl enable chronyd
 
 echo -------------------------------------------------
 echo
+echo                    Python3.4, pip
+echo
+echo -------------------------------------------------
+
+yum -y install python34-setuptools
+easy_install-3.4 pip
+
+echo -------------------------------------------------
+echo
+echo                    grc
+echo
+echo -------------------------------------------------
+
+git clone https://github.com/garabik/grc.git
+cd grc
+./install.sh
+cd
+rm -rf grc
+
+echo -------------------------------------------------
+echo
 echo                    vim 設定
 echo
 echo -------------------------------------------------
@@ -237,27 +258,6 @@ zsh $PROVISION/prezto.sh
 
 cp $PROVISION/dev/root/.zshrc ~/.zshrc
 cp $PROVISION/dev/root/.zpreztorc ~/.zpreztorc
-
-echo -------------------------------------------------
-echo
-echo                    Python3.4, pip
-echo
-echo -------------------------------------------------
-
-yum -y install python34-setuptools
-easy_install-3.4 pip
-
-echo -------------------------------------------------
-echo
-echo                    カラー設定
-echo
-echo -------------------------------------------------
-
-git clone https://github.com/garabik/grc.git
-cd grc
-./install.sh
-cd
-rm -rf grc
 
 echo -------------------------------------------------
 echo

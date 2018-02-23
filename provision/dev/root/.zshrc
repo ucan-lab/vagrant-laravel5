@@ -11,4 +11,10 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+if [ -f ~/.zsh_aliases ]; then
+  . ~/.zsh_aliases
+fi
+
 [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
+export LESS='-R'
+export LESSOPEN='| $HOME/bin/src-hilite-lesspipe.sh %s'
