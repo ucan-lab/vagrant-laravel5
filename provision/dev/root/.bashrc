@@ -7,3 +7,6 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 [[ -s "/etc/grc.bashrc" ]] && source /etc/grc.bashrc
+export LESS='-R'
+export LESSOPEN='| $HOME/bin/src-hilite-lesspipe.sh %s'
+export GREP_OPTIONS='--color=auto'

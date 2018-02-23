@@ -18,3 +18,4 @@ fi
 [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
 export LESS='-R'
 export LESSOPEN='| $HOME/bin/src-hilite-lesspipe.sh %s'
+export GREP_OPTIONS='--color=auto'
