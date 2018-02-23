@@ -2,6 +2,14 @@
 
 echo -------------------------------------------------
 echo
+echo                    設定
+echo
+echo -------------------------------------------------
+
+PROVISION=/vagrant/provision
+
+echo -------------------------------------------------
+echo
 echo                    yum 高速化設定
 echo
 echo -------------------------------------------------
@@ -118,7 +126,7 @@ echo
 echo -------------------------------------------------
 
 mv /etc/php.ini /etc/php.ini.org
-cp /vagrant/provision/dev/etc/php.ini /etc/php.ini
+cp $PROVISION/dev/etc/php.ini /etc/php.ini
 mkdir -p /var/log/php
 chown -R 777 /var/log/php
 systemctl restart httpd
@@ -139,7 +147,7 @@ echo
 echo -------------------------------------------------
 
 mv /etc/my.cnf /etc/my.cnf.org
-cp /vagrant/provision/dev/etc/my.cnf /etc/my.cnf
+cp $PROVISION/dev/etc/my.cnf /etc/my.cnf
 mkdir -p /var/log/mysql
 chown -R mysql:mysql /var/log/mysql
 systemctl start mysqld
@@ -172,7 +180,7 @@ echo                    MySQL ログイン設定
 echo
 echo -------------------------------------------------
 
-cp /vagrant/provision/dev/root/.mylogin.cnf /root/.mylogin.cnf
+cp $PROVISION/dev/root/.mylogin.cnf /root/.mylogin.cnf
 chmod 600 ~/.mylogin.cnf
 
 echo -------------------------------------------------
@@ -184,7 +192,6 @@ echo -------------------------------------------------
 curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
 yum -y install nodejs
 wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo
-# yum -y install https://dl.yarnpkg.com/rpm/yarn.repo
 yum -y install yarn
 
 echo -------------------------------------------------
@@ -199,12 +206,36 @@ systemctl enable chronyd
 
 echo -------------------------------------------------
 echo
-echo                    bash 設定
+echo                    vim 設定
 echo
 echo -------------------------------------------------
 
-\cp -f /vagrant/provision/dev/root/.bashrc ~/.bashrc
-\cp -f /vagrant/provision/dev/root/.bash_aliases ~/.bash_aliases
+git clone http://github.com/VundleVim/Vundle.Vim.git ~/.vim/bundle/vundle
+cp $PROVISION/dev/home/vagrant/.vimrc ~/.vimrc
+vim +BundleInstall +qa
+
+echo -------------------------------------------------
+echo
+echo                    bash
+echo
+echo -------------------------------------------------
+
+\cp -f $PROVISION/dev/root/.bashrc ~/.bashrc
+\cp -f $PROVISION/dev/root/.bash_aliases ~/.bash_aliases
+
+echo -------------------------------------------------
+echo
+echo                    zsh
+echo
+echo -------------------------------------------------
+
+yum -y install zsh
+echo /usr/bin/zsh | tee -a /etc/shells
+
+zsh $PROVISION/prezto.sh
+
+cp $PROVISION/dev/root/.zshrc ~/.zshrc
+cp $PROVISION/dev/root/.zpreztorc ~/.zpreztorc
 
 echo -------------------------------------------------
 echo

@@ -4,11 +4,19 @@
 
 echo -------------------------------------------------
 echo
+echo                    設定
+echo
+echo -------------------------------------------------
+
+PROVISION=/vagrant/provision
+
+echo -------------------------------------------------
+echo
 echo                    MySQL ログイン設定
 echo
 echo -------------------------------------------------
 
-cp /vagrant/provision/dev/home/vagrant/.mylogin.cnf ~/.mylogin.cnf
+cp $PROVISION/dev/home/vagrant/.mylogin.cnf ~/.mylogin.cnf
 chmod 600 ~/.mylogin.cnf
 
 echo -------------------------------------------------
@@ -39,19 +47,29 @@ composer clear-cache
 
 echo -------------------------------------------------
 echo
-echo                    bash 高速化
-echo
-echo -------------------------------------------------
-
-cp /vagrant/provision/dev/home/vagrant/.bashrc ~/.bashrc
-cp /vagrant/provision/dev/home/vagrant/.bash_aliases ~/.bash_aliases
-
-echo -------------------------------------------------
-echo
 echo                    vim 設定
 echo
 echo -------------------------------------------------
 
 git clone http://github.com/VundleVim/Vundle.Vim.git ~/.vim/bundle/vundle
-cp /vagrant/provision/dev/home/vagrant/.vimrc ~/.vimrc
+cp $PROVISION/dev/home/vagrant/.vimrc ~/.vimrc
 vim +BundleInstall +qa
+
+echo -------------------------------------------------
+echo
+echo                    bash
+echo
+echo -------------------------------------------------
+
+cp $PROVISION/dev/home/vagrant/.bashrc ~/.bashrc
+cp $PROVISION/dev/home/vagrant/.bash_aliases ~/.bash_aliases
+
+echo -------------------------------------------------
+echo
+echo                    zsh
+echo
+echo -------------------------------------------------
+
+zsh $PROVISION/prezto.sh
+cp $PROVISION/dev/home/vagrant/.zshrc ~/.zshrc
+cp $PROVISION/dev/home/vagrant/.zpreztorc ~/.zpreztorc
