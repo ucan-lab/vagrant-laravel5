@@ -11,3 +11,4 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
