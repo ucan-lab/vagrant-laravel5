@@ -133,6 +133,27 @@ systemctl restart httpd
 
 echo -------------------------------------------------
 echo
+echo                    Python3.4, pip
+echo
+echo -------------------------------------------------
+
+yum -y install python34-setuptools
+easy_install-3.4 pip
+
+echo -------------------------------------------------
+echo
+echo                    grc
+echo
+echo -------------------------------------------------
+
+git clone https://github.com/garabik/grc.git /tmp/grc
+cd /tmp/grc
+./install.sh
+rm -rf /tmp/grc
+cp $PROVISION/dev/root/.grcat ~/.grcat
+
+echo -------------------------------------------------
+echo
 echo                    MySQL5.7
 echo
 echo -------------------------------------------------
@@ -204,27 +225,6 @@ echo -------------------------------------------------
 yum -y install chrony
 systemctl start chronyd
 systemctl enable chronyd
-
-echo -------------------------------------------------
-echo
-echo                    Python3.4, pip
-echo
-echo -------------------------------------------------
-
-yum -y install python34-setuptools
-easy_install-3.4 pip
-
-echo -------------------------------------------------
-echo
-echo                    grc
-echo
-echo -------------------------------------------------
-
-git clone https://github.com/garabik/grc.git
-cd grc
-./install.sh
-cd
-rm -rf grc
 
 echo -------------------------------------------------
 echo

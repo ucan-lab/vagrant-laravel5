@@ -12,6 +12,14 @@ PROVISION=/vagrant/provision
 
 echo -------------------------------------------------
 echo
+echo                    grc
+echo
+echo -------------------------------------------------
+
+cp $PROVISION/dev/home/vagrant/.grcat ~/.grcat
+
+echo -------------------------------------------------
+echo
 echo                    MySQL ログイン設定
 echo
 echo -------------------------------------------------
