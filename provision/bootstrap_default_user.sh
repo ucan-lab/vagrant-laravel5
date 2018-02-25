@@ -60,7 +60,8 @@ echo                    vim 設定
 echo
 echo -------------------------------------------------
 
-git clone http://github.com/VundleVim/Vundle.Vim.git ~/.vim/bundle/vundle
+cd ~/
+git clone https://github.com/VundleVim/Vundle.Vim.git ~/.vim/bundle/vundle
 cp $PROVISION/dev/home/vagrant/.vimrc ~/.vimrc
 vim +BundleInstall +qa
 
