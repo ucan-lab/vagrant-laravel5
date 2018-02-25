@@ -19,3 +19,4 @@ fi
 export LESS='-R'
 export LESSOPEN='| $HOME/bin/src-hilite-lesspipe.sh %s'
 export GREP_OPTIONS='--color=auto'
+export PATH=~/.npm-global/bin:$PATH

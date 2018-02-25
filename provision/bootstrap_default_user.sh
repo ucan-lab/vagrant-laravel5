@@ -83,3 +83,12 @@ echo -------------------------------------------------
 zsh $PROVISION/prezto.sh
 cp $PROVISION/dev/home/vagrant/.zshrc ~/.zshrc
 cp $PROVISION/dev/home/vagrant/.zpreztorc ~/.zpreztorc
+
+echo -------------------------------------------------
+echo
+echo                    npm 設定
+echo
+echo -------------------------------------------------
+
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
