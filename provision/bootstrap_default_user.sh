@@ -82,6 +82,7 @@ echo -------------------------------------------------
 
 zsh $PROVISION/prezto.sh
 cp $PROVISION/dev/home/vagrant/.zshrc ~/.zshrc
+cp $PROVISION/dev/home/vagrant/.zsh_aliases ~/.zsh_aliases
 cp $PROVISION/dev/home/vagrant/.zpreztorc ~/.zpreztorc
 
 echo -------------------------------------------------

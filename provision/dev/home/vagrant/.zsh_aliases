@@ -1,3 +1,5 @@
+alias ll='ls -lh --time-style=long-iso --color'
+alias la='ls -alh --time-style=long-iso --color'
 alias art='php artisan'
 alias serve='php artisan serve --host 0.0.0.0'
 alias fresh='php artisan migrate:fresh --seed'

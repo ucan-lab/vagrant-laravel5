@@ -155,6 +155,14 @@ systemctl enable chronyd
 
 echo -------------------------------------------------
 echo
+echo                    source-highlight
+echo
+echo -------------------------------------------------
+
+yum -y install source-highlight
+
+echo -------------------------------------------------
+echo
 echo                    vim 設定
 echo
 echo -------------------------------------------------
@@ -180,11 +188,12 @@ echo
 echo -------------------------------------------------
 
 yum -y install zsh
-echo /bin/zsh | tee -a /etc/shells
+echo /usr/bin/zsh | tee -a /etc/shells
 
 zsh $PROVISION/prezto.sh
 
 \cp -f $PROVISION/dev/root/.zshrc ~/.zshrc
+\cp -f $PROVISION/dev/root/.zsh_aliases ~/.zsh_aliases
 \cp -f $PROVISION/dev/root/.zpreztorc ~/.zpreztorc
 
 echo -------------------------------------------------
