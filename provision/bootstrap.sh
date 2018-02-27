@@ -168,9 +168,9 @@ echo
 echo -------------------------------------------------
 
 cd ~/
-git clone https://github.com/VundleVim/Vundle.Vim.git ~/.vim/bundle/vundle
-\cp -f $PROVISION/dev/home/vagrant/.vimrc ~/.vimrc
-vim +BundleInstall +qa
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+\cp -f $PROVISION/dev/root/.vimrc ~/.vimrc
+vim +PluginInstall +qall
 
 echo -------------------------------------------------
 echo
