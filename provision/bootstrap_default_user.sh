@@ -12,21 +12,11 @@ PROVISION=/vagrant/provision
 
 echo -------------------------------------------------
 echo
-echo                    grc
-echo
-echo -------------------------------------------------
-
-cp $PROVISION/dev/home/vagrant/.grcat ~/.grcat
-
-echo -------------------------------------------------
-echo
 echo                    MySQL ログイン設定
 echo
 echo -------------------------------------------------
 
 cp $PROVISION/dev/home/vagrant/.mylogin.cnf ~/.mylogin.cnf
-cp $PROVISION/dev/home/vagrant/.my.cnf ~/.my.cnf
-chmod 600 ~/.mylogin.cnf
 
 echo -------------------------------------------------
 echo
@@ -56,40 +46,10 @@ composer clear-cache
 
 echo -------------------------------------------------
 echo
-echo                    vim 設定
+echo                    dotfiles
 echo
 echo -------------------------------------------------
 
-cd ~/
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-cp $PROVISION/dev/home/vagrant/.vimrc ~/.vimrc
-vim +PluginInstall +qall
-
-echo -------------------------------------------------
-echo
-echo                    bash
-echo
-echo -------------------------------------------------
-
-cp $PROVISION/dev/home/vagrant/.bashrc ~/.bashrc
-cp $PROVISION/dev/home/vagrant/.bash_aliases ~/.bash_aliases
-
-echo -------------------------------------------------
-echo
-echo                    zsh
-echo
-echo -------------------------------------------------
-
-zsh $PROVISION/prezto.sh
-cp $PROVISION/dev/home/vagrant/.zshrc ~/.zshrc
-cp $PROVISION/dev/home/vagrant/.zsh_aliases ~/.zsh_aliases
-cp $PROVISION/dev/home/vagrant/.zpreztorc ~/.zpreztorc
-
-echo -------------------------------------------------
-echo
-echo                    npm 設定
-echo
-echo -------------------------------------------------
-
-mkdir ~/.npm-global
-npm config set prefix '~/.npm-global'
+git clone https://github.com/ucan-lab/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+./install.sh

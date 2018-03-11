@@ -105,27 +105,6 @@ source $PROVISION/php72.sh
 
 echo -------------------------------------------------
 echo
-echo                    Python3.4, pip
-echo
-echo -------------------------------------------------
-
-yum -y install python34-setuptools
-easy_install-3.4 pip
-
-echo -------------------------------------------------
-echo
-echo                    grc
-echo
-echo -------------------------------------------------
-
-git clone https://github.com/garabik/grc.git /tmp/grc
-cd /tmp/grc
-./install.sh
-rm -rf /tmp/grc
-cp $PROVISION/dev/root/.grcat ~/.grcat
-
-echo -------------------------------------------------
-echo
 echo                    MySQL
 echo
 echo -------------------------------------------------
@@ -152,49 +131,6 @@ echo -------------------------------------------------
 yum -y install chrony
 systemctl start chronyd
 systemctl enable chronyd
-
-echo -------------------------------------------------
-echo
-echo                    source-highlight
-echo
-echo -------------------------------------------------
-
-yum -y install source-highlight
-
-echo -------------------------------------------------
-echo
-echo                    vim 設定
-echo
-echo -------------------------------------------------
-
-cd ~/
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-\cp -f $PROVISION/dev/root/.vimrc ~/.vimrc
-vim +PluginInstall +qall
-
-echo -------------------------------------------------
-echo
-echo                    bash
-echo
-echo -------------------------------------------------
-
-\cp -f $PROVISION/dev/root/.bashrc ~/.bashrc
-\cp -f $PROVISION/dev/root/.bash_aliases ~/.bash_aliases
-
-echo -------------------------------------------------
-echo
-echo                    zsh
-echo
-echo -------------------------------------------------
-
-yum -y install zsh
-echo /usr/bin/zsh | tee -a /etc/shells
-
-zsh $PROVISION/prezto.sh
-
-\cp -f $PROVISION/dev/root/.zshrc ~/.zshrc
-\cp -f $PROVISION/dev/root/.zsh_aliases ~/.zsh_aliases
-\cp -f $PROVISION/dev/root/.zpreztorc ~/.zpreztorc
 
 echo -------------------------------------------------
 echo
