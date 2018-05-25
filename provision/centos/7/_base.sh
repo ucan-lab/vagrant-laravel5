@@ -2,14 +2,6 @@
 
 echo -------------------------------------------------
 echo
-echo                    設定
-echo
-echo -------------------------------------------------
-
-PROVISION=/vagrant/provision
-
-echo -------------------------------------------------
-echo
 echo                    yum 高速化設定
 echo
 echo -------------------------------------------------
@@ -26,7 +18,7 @@ EOS
 
 echo -------------------------------------------------
 echo
-echo                    基本設定
+echo                    OS更新等
 echo
 echo -------------------------------------------------
 
@@ -36,7 +28,7 @@ yum -y groupinstall "Base" "Development tools" "Japanese Support"
 
 echo -------------------------------------------------
 echo
-echo                    便利ツール
+echo                    ユーティリティー
 echo
 echo -------------------------------------------------
 
@@ -83,47 +75,6 @@ systemctl enable yum-cron
 
 echo -------------------------------------------------
 echo
-echo                    Git
-echo
-echo -------------------------------------------------
-
-yum -y remove git
-yum -y install https://centos7.iuscommunity.org/ius-release.rpm
-yum -y install git2u
-
-yum -y install yum-utils
-yum-config-manager --disable ius
-
-echo -------------------------------------------------
-echo
-echo                    PHP
-echo
-echo -------------------------------------------------
-
-# source $PROVISION/php71.sh
-source $PROVISION/php72.sh
-
-echo -------------------------------------------------
-echo
-echo                    MySQL
-echo
-echo -------------------------------------------------
-
-source $PROVISION/mysql57.sh
-
-echo -------------------------------------------------
-echo
-echo                    Nodejs8.x, yarn
-echo
-echo -------------------------------------------------
-
-curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
-yum -y install nodejs
-wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo
-yum -y install yarn
-
-echo -------------------------------------------------
-echo
 echo                    chrony NTP設定
 echo
 echo -------------------------------------------------
@@ -131,12 +82,3 @@ echo -------------------------------------------------
 yum -y install chrony
 systemctl start chronyd
 systemctl enable chronyd
-
-echo -------------------------------------------------
-echo
-echo                    クリア
-echo
-echo -------------------------------------------------
-
-yum clean all
-history -c

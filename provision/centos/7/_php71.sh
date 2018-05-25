@@ -31,7 +31,23 @@ echo
 echo -------------------------------------------------
 
 mv /etc/php.ini /etc/php.ini.org
-cp $PROVISION/dev/etc/php71.ini /etc/php.ini
+cp $BASE_DIR/config/php71/php.ini /etc/php.ini
 mkdir -p /var/log/php
 chown -R 777 /var/log/php
 systemctl restart httpd
+
+echo -------------------------------------------------
+echo
+echo                    PHP Version
+echo
+echo -------------------------------------------------
+
+php --version
+
+echo -------------------------------------------------
+echo
+echo                    Composer Version
+echo
+echo -------------------------------------------------
+
+composer --version

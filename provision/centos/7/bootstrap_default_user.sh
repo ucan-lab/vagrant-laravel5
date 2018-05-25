@@ -4,11 +4,11 @@
 
 echo -------------------------------------------------
 echo
-echo                    設定
+echo                    変数
 echo
 echo -------------------------------------------------
 
-PROVISION=/vagrant/provision
+BASE_DIR=/vagrant/provision/centos/7
 
 echo -------------------------------------------------
 echo
@@ -16,7 +16,7 @@ echo                    MySQL ログイン設定
 echo
 echo -------------------------------------------------
 
-cp $PROVISION/dev/home/vagrant/.mylogin.cnf ~/.mylogin.cnf
+cp $BASE_DIR/config/vagrant/.mylogin.cnf ~/.mylogin.cnf
 
 echo -------------------------------------------------
 echo
@@ -46,10 +46,12 @@ composer clear-cache
 
 echo -------------------------------------------------
 echo
-echo                    dotfiles
+echo                    プロジェクト設定
 echo
 echo -------------------------------------------------
 
-git clone https://github.com/ucan-lab/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-./install.sh
+\cp -f $BASE_DIR/../../project/.bash_aliases ~/.bash_aliases
+\cp -f $BASE_DIR/../../project/.bashrc ~/.bashrc
+\cp -f $BASE_DIR/../../project/.zsh_aliases ~/.zsh_aliases
+\cp -f $BASE_DIR/../../project/.zshrc ~/.zshrc
+ln -sf /var/www/html ~/html

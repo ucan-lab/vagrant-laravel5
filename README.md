@@ -13,16 +13,17 @@ URL | http://192.168.99.99
 MySQLユーザー | vagrant
 MySQLパスワード | MySQL5.7
 
-# リンク
-
-- [Vagrant](https://www.vagrantup.com)
-- [VirtualBox](https://www.virtualbox.org)
-- [Macの初期設定参考リンク](https://github.com/ucan-lab/tips/issues/3)
-
-# プラグイン
+# バージョン
 
 ```
-$ vagrant plugin install vagrant-share vagrant-vbguest
+$ os
+macOS High Sierra 10.13.4
+$ vagrant --version
+Vagrant 2.1.1
+$ VBoxManage --version
+5.2.12r122591
+$ git --version
+git version 2.17.0
 ```
 
 # 環境構築
@@ -30,5 +31,12 @@ $ vagrant plugin install vagrant-share vagrant-vbguest
 ```
 $ git clone https://github.com/ucan-lab/vagrant-laravel55
 $ cd vagrant-laravel55
+$ cp Vagrantfile.example Vagrantfile
 $ vagrant up
 ```
+
+# リンク
+
+- [Vagrant](https://www.vagrantup.com)
+- [VirtualBox](https://www.virtualbox.org)
+- [Macの初期設定参考リンク](https://github.com/ucan-lab/tips/issues/3)
