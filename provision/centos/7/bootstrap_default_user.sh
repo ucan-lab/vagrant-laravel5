@@ -17,6 +17,7 @@ echo
 echo -------------------------------------------------
 
 cp $BASE_DIR/config/vagrant/.mylogin.cnf ~/.mylogin.cnf
+chmod 600 ~/.mylogin.cnf
 
 echo -------------------------------------------------
 echo
