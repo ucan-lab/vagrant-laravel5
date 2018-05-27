@@ -22,6 +22,10 @@ URL | http://192.168.33.99
 MySQLユーザー | vagrant
 MySQLパスワード | MySQL5.7
 
+# Sequel Pro 接続設定
+
+![Sequel Pro](sequelpro.png)
+
 # リンク
 
 - [Vagrant&VirtualBoxインストール手順](https://github.com/ucan-lab/vagrant-laravel5/wiki/mac-vagrant-virtualbox-install)
