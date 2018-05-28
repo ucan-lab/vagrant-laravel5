@@ -7,6 +7,7 @@ echo
 echo -------------------------------------------------
 
 BASE_DIR=/vagrant/provision/centos/7
+DB_PASSWORD=P@ssw0rd
 
 echo -------------------------------------------------
 echo

@@ -39,20 +39,19 @@ echo
 echo -------------------------------------------------
 
 # rootユーザーパスワード設定
-NEW_PASSWORD=MySQL5.6
-mysqladmin -u root password $NEW_PASSWORD
+mysqladmin -u root password $DB_PASSWORD
 # anonymasユーザー削除
-mysql -u root -p$NEW_PASSWORD -e "DELETE FROM mysql.user WHERE User='';"
-mysql -u root -p$NEW_PASSWORD -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
+mysql -u root -p$DB_PASSWORD -e "DELETE FROM mysql.user WHERE User='';"
+mysql -u root -p$DB_PASSWORD -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
 # testデータベース削除
-mysql -u root -p$NEW_PASSWORD -e "DROP DATABASE IF EXISTS test;"
-mysql -u root -p$NEW_PASSWORD -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
+mysql -u root -p$DB_PASSWORD -e "DROP DATABASE IF EXISTS test;"
+mysql -u root -p$DB_PASSWORD -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
 # vagrantユーザー作成
-mysql -u root -p$NEW_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'localhost' IDENTIFIED BY '$NEW_PASSWORD'"
-mysql -u root -p$NEW_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'127.0.0.1' IDENTIFIED BY '$NEW_PASSWORD'"
-mysql -u root -p$NEW_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'192.168.%' IDENTIFIED BY '$NEW_PASSWORD'"
+mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'localhost' IDENTIFIED BY '$DB_PASSWORD'"
+mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'127.0.0.1' IDENTIFIED BY '$DB_PASSWORD'"
+mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'192.168.%' IDENTIFIED BY '$DB_PASSWORD'"
 # 権限反映
-mysql -u root -p$NEW_PASSWORD -e "FLUSH PRIVILEGES;"
+mysql -u root -p$DB_PASSWORD -e "FLUSH PRIVILEGES;"
 
 echo -------------------------------------------------
 echo
