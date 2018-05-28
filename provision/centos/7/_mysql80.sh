@@ -2,11 +2,11 @@
 
 echo -------------------------------------------------
 echo
-echo                    MySQL5.7
+echo                    MySQL8.0
 echo
 echo -------------------------------------------------
 
-yum -y install https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+yum -y install https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm
 yum -y install mysql-community-server
 
 echo -------------------------------------------------
@@ -16,7 +16,7 @@ echo
 echo -------------------------------------------------
 
 mv /etc/my.cnf /etc/my.cnf.org
-cp $BASE_DIR/config/mysql57/my.cnf /etc/my.cnf
+cp $BASE_DIR/config/mysql80/my.cnf /etc/my.cnf
 mkdir -p /var/log/mysql
 chown -R mysql:mysql /var/log/mysql
 systemctl start mysqld
@@ -39,9 +39,13 @@ mysql -u root -p$DB_PASSWORD -e "DELETE FROM mysql.user WHERE User=''"
 # testデータベースの削除
 mysql -u root -p$DB_PASSWORD -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%'"
 # vagrantユーザーの作成
-mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'localhost' IDENTIFIED BY '$DB_PASSWORD'"
-mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'127.0.0.1' IDENTIFIED BY '$DB_PASSWORD'"
-mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'192.168.%' IDENTIFIED BY '$DB_PASSWORD'"
+mysql -u root -p$DB_PASSWORD -e "CREATE USER 'vagrant'@'localhost' IDENTIFIED BY '$DB_PASSWORD'"
+mysql -u root -p$DB_PASSWORD -e "CREATE USER 'vagrant'@'127.0.0.1' IDENTIFIED BY '$DB_PASSWORD'"
+mysql -u root -p$DB_PASSWORD -e "CREATE USER 'vagrant'@'192.168.%' IDENTIFIED BY '$DB_PASSWORD'"
+# vagrantユーザーに権限付与
+mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'localhost' WITH GRANT OPTION"
+mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'127.0.0.1' WITH GRANT OPTION"
+mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'192.168.%' WITH GRANT OPTION"
 # 権限設定の反映
 mysql -u root -p$DB_PASSWORD -e "FLUSH PRIVILEGES"
 
@@ -52,7 +56,10 @@ echo
 echo -------------------------------------------------
 
 cp $BASE_DIR/config/root/.mylogin.cnf /root/.mylogin.cnf
-chmod 600 ~/.mylogin.cnf
+chmod 600 /root/.mylogin.cnf
+cp $BASE_DIR/config/vagrant/.mylogin.cnf /home/vagrant/.mylogin.cnf
+chmod 600 /home/vagrant/.mylogin.cnf
+chown vagrant:vagrant /home/vagrant/.mylogin.cnf
 
 echo -------------------------------------------------
 echo
