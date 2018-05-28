@@ -20,7 +20,7 @@ IP | 192.168.33.99
 URL | http://192.168.33.99
 マウント場所 | ./ <=> /var/www/html
 MySQLユーザー | vagrant
-MySQLパスワード | MySQL5.7
+MySQLパスワード | P@ssw0rd
 
 # Sequel Pro 接続設定
 
