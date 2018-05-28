@@ -43,9 +43,9 @@ mysql -u root -p$DB_PASSWORD -e "CREATE USER 'vagrant'@'localhost' IDENTIFIED BY
 mysql -u root -p$DB_PASSWORD -e "CREATE USER 'vagrant'@'127.0.0.1' IDENTIFIED BY '$DB_PASSWORD'"
 mysql -u root -p$DB_PASSWORD -e "CREATE USER 'vagrant'@'192.168.%' IDENTIFIED BY '$DB_PASSWORD'"
 # vagrantユーザーに権限付与
-mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'localhost' WITH GRANT OPTION"
-mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'127.0.0.1' WITH GRANT OPTION"
-mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'192.168.%' WITH GRANT OPTION"
+mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'localhost'"
+mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'127.0.0.1'"
+mysql -u root -p$DB_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO 'vagrant'@'192.168.%'"
 # 権限設定の反映
 mysql -u root -p$DB_PASSWORD -e "FLUSH PRIVILEGES"
 

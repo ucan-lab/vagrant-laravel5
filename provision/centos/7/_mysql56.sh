@@ -18,10 +18,13 @@ echo                    MySQL 設定
 echo
 echo -------------------------------------------------
 
+mv /etc/my.cnf /etc/my.cnf.org
+cp $BASE_DIR/config/mysql56/my.cnf /etc/my.cnf
 mkdir -p /var/log/mysql
 chown -R mysql:mysql /var/log/mysql
-
-ln -sf $PROVISION/config/mysql56/my.cnf /etc/my.cnf -S .org
+systemctl start mysqld
+systemctl enable mysqld
+rm -f /var/log/mysqld.log
 
 echo -------------------------------------------------
 echo
@@ -59,9 +62,9 @@ echo                    MySQL ログイン設定
 echo
 echo -------------------------------------------------
 
-cp $PROVISION/config/mysql56/.mylogin.root.cnf /root/.mylogin.cnf
-cp $PROVISION/config/mysql56/.mylogin.vagrant.cnf /home/vagrant/.mylogin.cnf
+cp $BASE_DIR/config/root/.mylogin.cnf /root/.mylogin.cnf
 chmod 600 /root/.mylogin.cnf
+cp $BASE_DIR/config/vagrant/.mylogin.cnf /home/vagrant/.mylogin.cnf
 chmod 600 /home/vagrant/.mylogin.cnf
 chown vagrant:vagrant /home/vagrant/.mylogin.cnf
 

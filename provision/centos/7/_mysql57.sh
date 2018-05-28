@@ -52,7 +52,10 @@ echo
 echo -------------------------------------------------
 
 cp $BASE_DIR/config/root/.mylogin.cnf /root/.mylogin.cnf
-chmod 600 ~/.mylogin.cnf
+chmod 600 /root/.mylogin.cnf
+cp $BASE_DIR/config/vagrant/.mylogin.cnf /home/vagrant/.mylogin.cnf
+chmod 600 /home/vagrant/.mylogin.cnf
+chown vagrant:vagrant /home/vagrant/.mylogin.cnf
 
 echo -------------------------------------------------
 echo
