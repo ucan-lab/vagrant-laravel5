@@ -55,6 +55,14 @@ composer global require "laravel/installer"
 
 echo -------------------------------------------------
 echo
+echo                     SSH設定
+echo
+echo -------------------------------------------------
+
+\cp -f $BASE_DIR/config/vagrant/.ssh/config ~/.ssh
+
+echo -------------------------------------------------
+echo
 echo                    プロジェクト設定
 echo
 echo -------------------------------------------------
