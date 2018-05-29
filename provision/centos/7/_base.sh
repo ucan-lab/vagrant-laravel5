@@ -32,7 +32,7 @@ echo                    ユーティリティー
 echo
 echo -------------------------------------------------
 
-yum -y install epel-release tree pv dstat p7zip man-pages-ja
+yum -y install epel-release tree pv dstat zsh man-pages-ja
 
 echo -------------------------------------------------
 echo
