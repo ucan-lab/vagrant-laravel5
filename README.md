@@ -32,3 +32,5 @@ MySQLパスワード | P@ssw0rd
 - [Laravel5.5をインストールする例](https://github.com/ucan-lab/vagrant-laravel5/wiki/laravel5.5-install-example)
 - [Laravelプロジェクトをgit cloneする例](https://github.com/ucan-lab/vagrant-laravel5/wiki/laravel-project-git-clone-example)
 - [エイリアス設定](https://github.com/ucan-lab/vagrant-laravel5/blob/master/provision/project/.bash_aliases)
+- [MySQL8.0 caching_sha2_password エラー対策](https://github.com/ucan-lab/vagrant-laravel5/issues/4)
+- [MySQL8.0 NO_AUTO_CREATE_USERのSQL_MODE エラー対策](https://github.com/ucan-lab/vagrant-laravel5/issues/5)
