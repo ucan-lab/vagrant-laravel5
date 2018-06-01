@@ -22,6 +22,20 @@ URL | http://192.168.33.99
 MySQLユーザー | vagrant
 MySQLパスワード | P@ssw0rd
 
+# バージョン
+
+項目 | 値
+--- | ---
+CentOS | 7.x
+PHP | 7.2.x
+Composer | 1.x
+MySQL | 8.0.x
+Apache | 2.x
+Node(npm) | 8.x(5.x)
+yarn | 1.x
+Git | 2.x
+heroku-cli | 6.99.0
+
 # Sequel Pro 接続設定
 
 ![Sequel Pro](sequelpro.png)
