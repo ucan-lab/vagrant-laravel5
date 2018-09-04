@@ -41,8 +41,8 @@ echo
 echo -------------------------------------------------
 
 # . $BASE_DIR/_mysql56.sh
-# . $BASE_DIR/_mysql57.sh
-. $BASE_DIR/_mysql80.sh
+. $BASE_DIR/_mysql57.sh
+# . $BASE_DIR/_mysql80.sh
 
 echo -------------------------------------------------
 echo
